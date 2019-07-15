@@ -3,13 +3,13 @@ import React, { Component } from "react";
 export default class AddPost extends Component {
   state = {
     title : '',
-    content :''
+    body :''
   };
 
   handleSubmit = e => {
     e.preventDefault();
     this.props.addPost(this.state);
-    this.setState({ content: "" , title: ""});
+    this.setState({ body: "" , title: ""});
   };
 
   handleChange = e => {
@@ -30,10 +30,11 @@ export default class AddPost extends Component {
           />
           <label>Add a new post:</label>
           <input
-            type="text" id="content"
+            type="text" id="body"
             onChange={this.handleChange}
-            value={this.state.content}
+            value={this.state.body}
           />
+          <button type="submit" onClick={this.handleSubmit}>Post</button>
         </form>
       </div>
     );

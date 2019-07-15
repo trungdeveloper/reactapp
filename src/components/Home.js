@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import AddPost from './AddPost';
+import { Link } from 'react-router-dom'
 
 class Home extends Component {
   state = {
@@ -10,16 +11,15 @@ class Home extends Component {
 
   addPost = (post) => {
     post.id = Math.random();
-    let posts = [...this.state.posts,post];
+    let posts = [post,...this.state.posts];
     this.setState({ posts });
   }
 
   componentDidMount(){
     axios.get('https://jsonplaceholder.typicode.com/posts/')
-      .then(respon => {
-        console.log(respon);
+      .then(response => {
         this.setState({
-          posts: respon.data.slice(0,10)
+          posts: response.data.slice(0,10)
         });
       })
   }
@@ -29,8 +29,11 @@ class Home extends Component {
       posts.map(post => {
         return (
           <div className="post card" key={post.id}>
+            <img src="https://raw.githubusercontent.com/iamshaunjp/react-redux-complete-playlist/lesson-33/poketimes/src/pokeball.png" alt=""/>
             <div className="card-content">
-              <span className="card-title">{post.title}</span>
+              <Link to={'/posts/'+post.id}>
+              <span className="card-title red-text">{post.title}</span>
+              </Link>
               <p>{post.body}</p>
             </div>
           </div>
